@@ -2,10 +2,13 @@
 Barcode Generator v2.0
 
 ===================================
+
 Version 1.0 - Generate Barcodes
-Version 2.0 - Added Scan Barcodes  
+
+Version 2.0 - Added Scan Barcodes
 
 Generates barcodes and Scan barcodes in Android
+
 
 
 Introduction
