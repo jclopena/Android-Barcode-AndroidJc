@@ -11,7 +11,11 @@
         <item>Barcode-93</item>
         <item>AZTEC</item>
     </string-array>
-
+    <integer name="viewfinder_border_width">4</integer>
+    <integer name="viewfinder_border_length">60</integer>
     <string name="type_prompt">Select Type</string>
+    <string name="visit">Visit</string>
+    <string name="generate_barcode">Generate Barcode</string>
+    <string name="scan_barcode">Scan Barcode</string>
 
 </resources>

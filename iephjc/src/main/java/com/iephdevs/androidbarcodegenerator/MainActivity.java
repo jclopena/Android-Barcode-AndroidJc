@@ -9,19 +9,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import com.google.android.material.button.MaterialButton;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,13 +22,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         editText1 = findViewById(R.id.edittext2);
         Spinner type_spinner = findViewById(R.id.type_spinner);
         imageView = findViewById(R.id.image_imageview);
-
+        Button scan = findViewById(R.id.scan);
         type_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -86,7 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent scan = new Intent(MainActivity.this,Scanner.class);
+                startActivity(scan);
+            }
+        });
         button_generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,14 +237,9 @@ public class MainActivity extends AppCompatActivity {
                 out.flush();
                 out.close();
             }
-        }
-        catch (FileNotFoundException fnfe)
+        } catch (IOException fnfe)
         {
             fnfe.printStackTrace();
-        }
-        catch (IOException ioe)
-        {
-            ioe.printStackTrace();
         }
 
         this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + fileName)));
@@ -285,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
                     saveBitmap(myBitmap, message, ".png");
 
                     LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-                    View view = layoutInflater.inflate(R.layout.success_dialog, null);
+                    @SuppressLint("InflateParams") View view = layoutInflater.inflate(R.layout.success_dialog, null);
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
                     builder.setCancelable(false);
@@ -304,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
                     builder.show();
                     Toast.makeText(MainActivity.this, "Save barcode DONE!",
                             Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
+                } catch (Exception ignored) {
 
                 }
             }
@@ -313,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.about) {
 
             LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-            View view = layoutInflater.inflate(R.layout.about, null);
+            @SuppressLint("InflateParams") View view = layoutInflater.inflate(R.layout.about, null);
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
             builder.setCancelable(false);

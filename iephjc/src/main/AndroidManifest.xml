@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.iephdevs.androidbarcodegenerator">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -11,7 +15,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/icon1"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Light"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -22,6 +27,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Scanner"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".CameraHandlerThread"/>
+        <activity
+            android:name=".CameraPreview"/>
+        <activity
+            android:name=".CameraUtils"/>
+        <activity
+            android:name=".CameraWrapper"/>
+        <activity
+            android:name=".IViewFinder"/>
+        <activity
+            android:name=".ViewFinderView"/>
+        <activity
+            android:name=".ScannerView"/>
     </application>
 
 </manifest>
